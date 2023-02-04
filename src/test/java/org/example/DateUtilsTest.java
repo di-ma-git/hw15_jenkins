@@ -11,19 +11,18 @@ import java.util.Calendar;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class DateFeaturesTest extends DefaultTest {
+public class DateUtilsTest extends DefaultTest {
 
-    DateFeatures dateFeatures;
+    DateUtils dateFeatures;
 
     @BeforeAll
     public void init() {
-        dateFeatures = new DateFeatures();
+        dateFeatures = new DateUtils();
     }
 
     @Test
     public void buildSqlDateTest() {
         Date date = dateFeatures.buildSqlDate(12, 3, 2000);
-
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
 
@@ -35,18 +34,15 @@ public class DateFeaturesTest extends DefaultTest {
     @Test
     public void convertDateIntoDDMMYYYYFormat() {
         LocalDate localDate = LocalDate.of(2000, 3, 12);
-
         Date date = Date.valueOf(localDate);
         String dateInDDMMYYYY = dateFeatures.convertDateIntoDDMMYYYYFormat(date);
 
         assertThat("12032000", equalTo(dateInDDMMYYYY));
     }
 
-
     @Test
     public void buildDateTime() {
         DateTime time = dateFeatures.buildDateTime(12, 3, 2000);
-
         DateTime expected = DateTime.parse("2000-03-12");
 
         assertThat(time, equalTo(expected));

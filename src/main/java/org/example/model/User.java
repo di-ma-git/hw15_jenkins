@@ -1,8 +1,9 @@
 package org.example.model;
 
 public class User {
-    public User() {
-    }
+
+    String name;
+    int id;
 
     public User(String name, int id) {
         this.name = name;
@@ -25,6 +26,4 @@ public class User {
         this.id = id;
     }
 
-    String name;
-    int id;
 }
