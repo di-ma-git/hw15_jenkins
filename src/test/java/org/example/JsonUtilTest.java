@@ -2,7 +2,6 @@ package org.example;
 
 import com.jayway.jsonpath.JsonPath;
 import org.example.model.User;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.example.JsonUtils.convertJsonToUserUsingJackson;

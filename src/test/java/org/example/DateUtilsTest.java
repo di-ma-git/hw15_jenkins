@@ -1,28 +1,23 @@
 package org.example;
 
 import org.joda.time.DateTime;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Calendar;
 
+import static org.example.DateUtils.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DateUtilsTest extends DefaultTest {
 
-    DateUtils dateFeatures;
-
-    @BeforeAll
-    public void init() {
-        dateFeatures = new DateUtils();
-    }
-
     @Test
     public void buildSqlDateTest() {
-        Date date = dateFeatures.buildSqlDate(12, 3, 2000);
+        Date date = buildSqlDate(12, 3, 2000);
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
 
@@ -32,19 +27,28 @@ public class DateUtilsTest extends DefaultTest {
     }
 
     @Test
-    public void convertDateIntoDDMMYYYYFormat() {
+    public void convertDateIntoDDMMYYYYFormatTest() {
         LocalDate localDate = LocalDate.of(2000, 3, 12);
         Date date = Date.valueOf(localDate);
-        String dateInDDMMYYYY = dateFeatures.convertDateIntoDDMMYYYYFormat(date);
+        String dateInDDMMYYYY = convertDateIntoDDMMYYYYFormat(date);
 
         assertThat("12032000", equalTo(dateInDDMMYYYY));
     }
 
     @Test
-    public void buildDateTime() {
-        DateTime time = dateFeatures.buildDateTime(12, 3, 2000);
+    public void buildDateTimeTest() {
+        DateTime time = buildDateTime(12, 3, 2000);
         DateTime expected = DateTime.parse("2000-03-12");
 
         assertThat(time, equalTo(expected));
     }
+
+    @Test
+    public void buildTimestampTest() {
+        Date nowSqlDate = new Date(System.currentTimeMillis());
+        Timestamp timestamp = convertTimeStampFromSqlDate(nowSqlDate);
+        Date afterConversionDate = convertFromTimeStampToSqlDate(timestamp);
+        assertEquals(nowSqlDate, afterConversionDate);
+    }
+
 }
