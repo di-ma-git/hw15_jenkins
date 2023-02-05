@@ -26,4 +26,9 @@ public class User {
         this.id = id;
     }
 
+    @Override
+    protected void finalize(){
+        System.out.println("died");
+    }
+
 }
