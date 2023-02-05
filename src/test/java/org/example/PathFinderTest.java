@@ -10,7 +10,7 @@ import static org.example.PathFinder.hasPath;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PathFinder extends DefaultTest {
+public class PathFinderTest extends DefaultTest {
 
     @Test
     public void existentPathTest() {
