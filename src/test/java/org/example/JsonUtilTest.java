@@ -1,5 +1,6 @@
 package org.example;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jayway.jsonpath.JsonPath;
 import org.example.model.User;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class JsonUtilTest extends DefaultTest {
     }
 
     @Test
-    public void convertToObject(){
+    public void convertToObject() throws JsonProcessingException {
         String validJson = "{\"name\":\"James\", \"id\":31}";
         User parsedUser =  convertJsonToUserUsingJackson(validJson);
 
