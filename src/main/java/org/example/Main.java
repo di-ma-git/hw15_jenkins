@@ -1,73 +1,72 @@
 package org.example;
 
-import org.example.model.User;
+import org.example.calculators.*;
+import org.example.calculators.total.TotalTaxCalculator;
+import org.example.model.Citizen;
+import org.example.model.Country;
+import org.example.model.CountryReport;
+import org.example.report.PdfReportWriter;
+import org.example.report.ReportWriter;
+import org.example.report.TextReportWriter;
+import org.example.service.CurrencyConverter;
 
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static org.example.model.Currency.RUB;
+import static org.example.model.Currency.USD;
+import static org.example.service.ReadService.readCitizensFromFile;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        OutputStream outputStream = new FileOutputStream("C:\\keke33.json");
-        outputStream.write(125);
-        outputStream.close();
-        System.out.println("returning: " + keke());
+    public static final String CITIZEN_PATH = "C:\\Users\\icju\\java_core_2023_jan\\src\\main\\resources\\citizens.txt";
+    public static final String REPORT_TXT_FILE = "C:\\Users\\icju\\java_core_2023_jan\\src\\main\\resources\\textReport.txt";
+    public static final String PDF_TXT_FILE = "C:\\Users\\icju\\java_core_2023_jan\\src\\main\\resources\\pdfReport.pdf";
+    public static final String FINAL_PDF_REPORT = "C:\\Users\\icju\\java_core_2023_jan\\src\\main\\resources\\finalPdfReport.pdf";
+    public static final String FINAL_PDF_REPORT_USD = "C:\\Users\\icju\\java_core_2023_jan\\src\\main\\resources\\finalPdfReportUSD.pdf";
+    public static final Map<Country, TaxCalculator> taxCalculators = new HashMap<>();
+
+
+    public static void main(String[] args) {
+        CurrencyConverter currencyCalculator = new CurrencyConverter("USD:GBP-0.75,USD:EUR-0.9,USD:RUB-0.02");
+
+        taxCalculators.put(Country.UK, new UkTaxCalculator());
+        taxCalculators.put(Country.CANADA, new CanadianTaxCalculator());
+        taxCalculators.put(Country.RUSSIA, new RussianTaxCalculator());
+        taxCalculators.put(Country.GERMANY, new GermanyTaxCalculator());
+
+        List<Citizen> citizens = readCitizensFromFile(CITIZEN_PATH);
+
+        for (Citizen citizen : citizens) {
+            TaxCalculator calculator = taxCalculators.get(citizen.getCountry());
+            citizen.setTotalTax(calculator.calculateTax(citizen));
+        }
+
+        List<String> citizensStrings = citizens.stream().map(Citizen::toString).collect(Collectors.toList());
+
+//        ReportWriter textReportWriter = new TextReportWriter(REPORT_TXT_FILE);
+//        textReportWriter.writeReport(citizensStrings);
+//
+//        PdfReportWriter pdfReportWriter = new PdfReportWriter(PDF_TXT_FILE);
+//        pdfReportWriter.writeReport(citizensStrings);
+
+
+
+
+        TotalTaxCalculator totalTaxCalculator = new TotalTaxCalculator(currencyCalculator);
+
+        CountryReport countryReport = totalTaxCalculator.calculateReport(citizens, Country.RUSSIA, RUB);
+
+        PdfReportWriter pdfReportWriter = new PdfReportWriter(FINAL_PDF_REPORT);
+        pdfReportWriter.writeReport(List.of(countryReport.toString()));
+
+         countryReport = totalTaxCalculator.calculateReport(citizens, Country.RUSSIA, USD);
+
+        pdfReportWriter = new PdfReportWriter(FINAL_PDF_REPORT_USD);
+        pdfReportWriter.writeReport(List.of(countryReport.toString()));
     }
 
-    public static String keke() throws Exception {
-        try{
-            System.out.println("a");
-            if(true) throw new Exception("111");
-            return "a";
-        }catch (Exception e){
-            if(true) throw new Exception("111");
-            System.out.println("b");
-            return "b";
-        }
-        finally {
-            if(true) throw new Exception("111");
-            System.out.println("c");
-            return "c";
-        }
-    }
 
-    @Override
-    protected void finalize()
-    {
-        System.out.println("finalize method called");
-    }
-/*
-*  long current = System.currentTimeMillis();
-        System.out.println(Files.readString(Paths.get("C:\\100k.json")));
-        System.out.println((System.currentTimeMillis() - current)/100f);//4.2
-        * */
-/*
-*    long current = System.currentTimeMillis();
-        File initialFile = new File("C:\\100k.json");
-        final InputStream targetStream =
-                new DataInputStream(new FileInputStream(initialFile));
-        BufferedInputStream bis = new BufferedInputStream(targetStream);
-        ByteArrayOutputStream buf = new ByteArrayOutputStream();
-        int result = bis.read();
-        while(result != -1) {
-            byte b = (byte)result;
-            buf.write(b);
-            result = bis.read();
-        }
-        System.out.println(buf);
-        System.out.println((System.currentTimeMillis() - current)/100f);//8.84*/
-    /*
-    long current = System.currentTimeMillis();
-        Path path = Paths.get("C:\\100k.json");
-        try (InputStream inputStream = Files.newInputStream(path)) {
-            byte[] bytes = inputStream.readAllBytes();
-            System.out.println(new String(bytes, StandardCharsets.UTF_8));
-        }
-        System.out.println((System.currentTimeMillis() - current)/100f);//5.1
-        */
 }
