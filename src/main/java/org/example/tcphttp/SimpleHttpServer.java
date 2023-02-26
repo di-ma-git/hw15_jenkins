@@ -12,15 +12,20 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.Map;
 
 import static org.example.tcphttp.DataUtil.getFileAsByteArray;
 
 public class SimpleHttpServer {
     private static UserApi userApi = UserApi.getInstance();
 
+    public static Map<Integer,Integer> findOnlyOddelements(){
+        return Collections.emptyMap();
+    }
+
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8500), 0);
-
         setContext("/users", server, SimpleHttpServer::handleDataRequest);
         setContext("/static", server, SimpleHttpServer::handleStaticRequest);
         setContext("/website", server, SimpleHttpServer::handleStaticRequest);

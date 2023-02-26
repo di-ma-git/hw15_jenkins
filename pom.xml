@@ -156,7 +156,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        org.example.App
+                                        org.example.tcphttp.SimpleHttpServer
                                     </mainClass>
                                 </manifest>
                             </archive>
