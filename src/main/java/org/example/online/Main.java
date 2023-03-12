@@ -21,6 +21,7 @@ public class Main {
         HttpServer server = HttpServer.create(new InetSocketAddress(8500), 0);
         setContext("/users", server, Main::handleDataRequest);
         setContext("/temp", server, Main::handleStaticRequest);
+        setContext("/website", server, Main::handleStaticRequest);
         server.start();
     }
 
