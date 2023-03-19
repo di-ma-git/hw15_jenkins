@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,6 +16,12 @@ import java.util.stream.Collectors;
 public class MyConfig {
 //IOC inversion of control
 
+    @Bean
+    File file() throws IOException {
+        File file = new File("myRepository.txt");
+        if(!file.exists()) file.createNewFile();
+        return file;
+    }
 
     @Bean
     public List<String> myNames(){
