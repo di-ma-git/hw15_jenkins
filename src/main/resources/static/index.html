@@ -1,36 +1,86 @@
 <html>
 
 <head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
 
     <script>
-
-
-        window.addEventListener("DOMContentLoaded", (event) => {
-
-            const myDiv = document.getElementById("123");
-            let element1 = document.createElement("h1");
-            element1.innerHTML = " new h1 ";
-
-            let element2 = document.createElement("h1");
-            element2.innerHTML = " new h2 ";
-            myDiv.append(element1)
-            myDiv.append(element2)
-
-
-            const element = document.getElementsByClassName("myGenericClass");
-            var list = document.getElementsByClassName("myGenericClass");
-            for (let item of list) {
-                console.log(item)
-            }
-
-        });
-
         function loadCitizens() {
+            console.log("pressed")
 
+
+            fetch('http://localhost:8080/citizens')
+                .then(response => response.json())
+                .then(json => console.log(json));
+
+            const xhr = new XMLHttpRequest();
+            const method = "GET";
+            const url = "http://localhost:8080/citizens";
+
+            xhr.open(method, url, true);
+            xhr.send()
+            xhr.onreadystatechange = (e) => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    const status = xhr.status;
+                    if (status === 0 || (status >= 200 && status < 400)) {
+                        console.log(xhr.responseText);
+                        var listOfCitizens = JSON.parse(xhr.responseText);
+
+                        listOfCitizens.forEach(function (citizen){
+
+                            var tbodyElement = document.getElementById("citizenBody");
+
+                            var trElement = document.createElement("tr");
+
+                            var tdIdElement = document.createElement("td");
+                            tdIdElement.innerHTML = citizen['id'];
+
+                            var tdIdElementFirstName = document.createElement("td");
+                            tdIdElementFirstName.innerHTML = citizen['firstname'];
+
+                            var address = document.createElement("td");
+                            address.innerHTML = citizen['address'];
+
+                            var country = document.createElement("td");
+                            country.innerHTML = citizen['country'];
+
+                            var birthDate = document.createElement("td");
+                            birthDate.innerHTML = citizen['birthDate'];
+
+                            trElement.append(tdIdElement)
+                            trElement.append(birthDate)
+                            trElement.append(address)
+                            trElement.append(country)
+                            trElement.append(tdIdElementFirstName)
+
+                            tbodyElement.append(trElement)
+
+                        })
+                    } else {
+                        console.log("didn't work! " + status)
+                    }
+                }
+            }
         }
-
     </script>
-
 </head>
 
 <body>
@@ -38,16 +88,22 @@
 <table>
     <thead>
     <tr>
-        <th colspan="1">Citizen Id</th>
-        <th colspan="2">Citizen Birthday</th>
-        <th colspan="3">Citizen address</th>
-        <th colspan="4">Citizen country</th>
-        <th colspan="5">Citizen firstname</th>
+        <th >Citizen Id</th>
+        <th >Citizen Birthday</th>
+        <th >Citizen address</th>
+        <th >Citizen country</th>
+        <th >Citizen firstname</th>
     </tr>
     </thead>
+    <tbody id="citizenBody">
+
+<!--    <tr><td>123 </td><td>1920-12-13</td><td>St. Norht</td><td>Petay</td></tr>-->
+
+
+    </tbody>
 </table>
 
-<button onclick=""> Load citizens </button>
+<button onclick="loadCitizens()"> Load citizens </button>
 
 </body>
 
