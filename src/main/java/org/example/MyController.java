@@ -12,12 +12,10 @@ import java.util.List;
 @RestController
 public class MyController {
 
-    @Autowired
-    private List<String> myNames;
 
-    @GetMapping("/users")
-    public List<String> users(){
-        return myNames;
-    }
+//    @GetMapping("/users")
+//    public List<String> users(){
+//        return myNames;
+//    }
 
 }
