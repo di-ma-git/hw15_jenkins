@@ -1,90 +1,13 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            font-family: Arial, sans-serif;
-        }
-        th, td {
-            text-align: left;
-            padding: 12px;
-        }
-        th {
-            background-color: #333;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-    </style>
-
-    <script>
-        function loadCitizens() {
-            console.log("pressed")
-
-
-            fetch('http://localhost:8080/citizens')
-                .then(response => response.json())
-                .then(json => console.log(json));
-
-            const xhr = new XMLHttpRequest();
-            const method = "GET";
-            const url = "http://localhost:8080/citizens";
-
-            xhr.open(method, url, true);
-            xhr.send()
-            xhr.onreadystatechange = (e) => {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    const status = xhr.status;
-                    if (status === 0 || (status >= 200 && status < 400)) {
-                        console.log(xhr.responseText);
-                        var listOfCitizens = JSON.parse(xhr.responseText);
-
-                        listOfCitizens.forEach(function (citizen){
-
-                            var tbodyElement = document.getElementById("citizenBody");
-
-                            var trElement = document.createElement("tr");
-
-                            var tdIdElement = document.createElement("td");
-                            tdIdElement.innerHTML = citizen['id'];
-
-                            var tdIdElementFirstName = document.createElement("td");
-                            tdIdElementFirstName.innerHTML = citizen['firstname'];
-
-                            var address = document.createElement("td");
-                            address.innerHTML = citizen['address'];
-
-                            var country = document.createElement("td");
-                            country.innerHTML = citizen['country'];
-
-                            var birthDate = document.createElement("td");
-                            birthDate.innerHTML = citizen['birthDate'];
-
-                            trElement.append(tdIdElement)
-                            trElement.append(birthDate)
-                            trElement.append(address)
-                            trElement.append(country)
-                            trElement.append(tdIdElementFirstName)
-
-                            tbodyElement.append(trElement)
-
-                        })
-                    } else {
-                        console.log("didn't work! " + status)
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="mystyle.css" rel="stylesheet" type="text/css">
+    <script src="myscript.js"></script>
 </head>
-
 <body>
-
+`
 <table>
     <thead>
     <tr>
@@ -97,13 +20,11 @@
     </thead>
     <tbody id="citizenBody">
 
-<!--    <tr><td>123 </td><td>1920-12-13</td><td>St. Norht</td><td>Petay</td></tr>-->
-
 
     </tbody>
 </table>
 
-<button onclick="loadCitizens()"> Load citizens </button>
+<button onclick="loadCitizens(url)"> Load citizens </button>
 
 </body>
 

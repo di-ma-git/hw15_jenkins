@@ -17,4 +17,9 @@ public class FileBasedCitizenService implements CitizenService{
         return citizens;
     }
 
+    @Override
+    public List<Citizen> getCitizensByCountry() {
+        return null;
+    }
+
 }

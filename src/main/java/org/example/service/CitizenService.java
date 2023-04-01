@@ -6,5 +6,8 @@ import java.util.List;
 public interface CitizenService {
 
     List<Citizen> getAllCitizens();
+    List<Citizen> getCitizensByCountry();
+
+
 
 }

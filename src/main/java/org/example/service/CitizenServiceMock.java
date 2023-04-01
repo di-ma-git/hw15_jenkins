@@ -16,4 +16,9 @@ public class CitizenServiceMock implements CitizenService {
         return citizens;
     }
 
+    @Override
+    public List<Citizen> getCitizensByCountry() {
+        return null;
+    }
+
 }
