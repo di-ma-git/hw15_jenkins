@@ -22,15 +22,19 @@ public class CitizenController {
     @Autowired
     private CitizenService fileBasedCitizenService;
 
+    @GetMapping("/search")
+    public String getSearchPage() {
+        return "search.html";
+    }
     @GetMapping("/citizens/")
-    public ResponseEntity<List<Citizen>> users() {
+    public ResponseEntity<List<Citizen>> getAllCitizens() {
         return fileBasedCitizenService.getAllCitizens().isEmpty()
                 ? new ResponseEntity<>(fileBasedCitizenService.getAllCitizens(), HttpStatus.NOT_FOUND)
                 : new ResponseEntity<>(fileBasedCitizenService.getAllCitizens(), HttpStatus.OK);
     }
 // /citizen?country=china
     @GetMapping("/citizens")
-    public ResponseEntity<List<Citizen>> citizensByCountry(@RequestParam(required = false) String country) {
+    public ResponseEntity<List<Citizen>> getCitizensByCountry(@RequestParam(required = false) String country) {
         List<Citizen> citizensByCountry = new ArrayList<>();
         for (Citizen citizen : fileBasedCitizenService.getAllCitizens()) {
             if (citizen.getCountry().toLowerCase().equals(country.toLowerCase())) {
