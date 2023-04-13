@@ -22,10 +22,10 @@ public class CitizenController {
     @Autowired
     private CitizenService fileBasedCitizenService;
 
-    @GetMapping("/search")
-    public String getSearchPage() {
-        return "search.html";
-    }
+//    @GetMapping("/search")
+//    public String getSearchPage() {
+//        return "search.html";
+//    }
     @GetMapping("/citizens/")
     public ResponseEntity<List<Citizen>> getAllCitizens() {
         return fileBasedCitizenService.getAllCitizens().isEmpty()
