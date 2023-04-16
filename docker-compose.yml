@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  bd:
+    image: mariadb:latest
+    restart: always
+    container_name: database
+    ports:
+      - 3310:3306
+    volumes:
+      - ./db:/var/lib/mysql
+      - ./config/init_db.sql:/docker-entrypoint-initdb.d/schema.sql
+    environment:
+      - MARIADB_USER=myuser
+      - MARIADB_PASSWORD=myuser
+      - MARIADB_ROOT_PASSWORD=vY3qS4uW9atT
+
+  redis:
+    image: redis:alpine
+    restart: always
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./config/redis.conf:/usr/local/etc/redis/redis.conf
+    container_name: redis
+    ports:
+      - 6379:6379
+      
+  app:
+    build: ../hw12
+    container_name: application
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+      - redis
