@@ -1,12 +1,13 @@
-FROM openjdk:11
+FROM maven:3.8.5-openjdk-17
 
-RUN apt update && \
-	apt install maven
+#RUN apt-get update
+
+ARG JAR_FILE=target/demo-0.0.1-SNAPSHOT.jar
 
 WORKDIR /usr/src/myapp
 
-COPY ../hw12 /usr/src/myapp
+COPY ./ /usr/src/myapp
 
-RUN mvn clean install
+RUN mvn clean package -DskipTests
 
-ENTRYPOINT ["java","-jar","demo-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","${JAR_FILE}"]

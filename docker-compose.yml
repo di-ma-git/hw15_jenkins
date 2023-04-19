@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  bd:
+  db:
     image: mariadb:latest
     restart: always
     container_name: database
@@ -26,7 +26,7 @@ services:
       - 6379:6379
       
   app:
-    build: ../hw12
+    build: ./
     container_name: application
     ports:
       - 8080:8080
