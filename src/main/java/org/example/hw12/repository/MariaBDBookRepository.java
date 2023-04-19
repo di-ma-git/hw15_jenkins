@@ -25,8 +25,8 @@ public class MariaBDBookRepository {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASS)) {
 //            Class.forName(DRIVER);
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT book_id, book_name," +
-                    "book_description, YEAR(book_publish_date), author_name, books.author_id FROM books.books\n" +
-                    "JOIN books.authors\n" +
+                    "book_description, YEAR(book_publish_date), author_name, books.author_id FROM books_bd.books\n" +
+                    "JOIN books_bd.authors\n" +
                     "ON books.author_id = authors.author_id");
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Book> books = new ArrayList<>();
