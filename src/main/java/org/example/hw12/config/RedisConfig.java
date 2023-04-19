@@ -11,8 +11,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class RedisConfig {
-//    private String host = "127.0.0.1";
-    private String host = "185.106.92.133";
+    private String host = "127.0.0.1";
+//    private String host = "185.106.92.133";
     private int port = 6379;
     private String pass = "vY3qS4uW9atT";
 
