@@ -14,7 +14,7 @@ public class MariaBDBookRepository {
     private String DRIVER;
 //    @Value("${URL}")
 //    private String URL = "jdbc:mariadb://185.106.92.133:3310/books";
-    private String URL = "jdbc:mariadb://127.0.0.1:3310/books";
+    private String URL = "jdbc:mariadb://127.0.0.1:3306/books";
 //    @Value("${USERNAME}")
     private String USERNAME = "root";
 //    @Value("${PASS}")
