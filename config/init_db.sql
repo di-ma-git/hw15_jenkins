@@ -1,9 +1,9 @@
 DROP SCHEMA
 
-IF EXISTS books_bd;
-	CREATE SCHEMA books_bd COLLATE = utf8_general_ci;
+IF EXISTS books;
+	CREATE SCHEMA books COLLATE = utf8_general_ci;
 
-USE books_bd;
+USE books;
 
 CREATE TABLE books (
   book_id INT AUTO_INCREMENT,

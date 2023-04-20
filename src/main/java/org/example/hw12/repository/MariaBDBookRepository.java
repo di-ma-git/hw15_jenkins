@@ -14,7 +14,7 @@ public class MariaBDBookRepository {
     private String DRIVER;
 //    @Value("${URL}")
 //    private String URL = "jdbc:mariadb://185.106.92.133:3310/books";
-    private String URL = "jdbc:mariadb://127.0.0.1:3306/books_bd";
+    private String URL = "jdbc:mariadb://127.0.0.1:3306/books";
 //    @Value("${USERNAME}")
     private String USERNAME = "root";
 //    @Value("${PASS}")
@@ -25,8 +25,8 @@ public class MariaBDBookRepository {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASS)) {
 //            Class.forName(DRIVER);
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT book_id, book_name," +
-                    "book_description, YEAR(book_publish_date), author_name, books.author_id FROM books_bd.books\n" +
-                    "JOIN books_bd.authors\n" +
+                    "book_description, YEAR(book_publish_date), author_name, books.author_id FROM books.books\n" +
+                    "JOIN books.authors\n" +
                     "ON books.author_id = authors.author_id");
             ResultSet resultSet = preparedStatement.executeQuery();
             List<Book> books = new ArrayList<>();
@@ -49,7 +49,7 @@ public class MariaBDBookRepository {
     }
     public Author findAuthorById(String id) {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASS)) {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM books_db.authors WHERE author_id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM books.authors WHERE author_id = ?");
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             Author author = null;
