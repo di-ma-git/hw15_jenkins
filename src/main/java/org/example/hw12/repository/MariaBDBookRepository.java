@@ -49,7 +49,7 @@ public class MariaBDBookRepository {
     }
     public Author findAuthorById(String id) {
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASS)) {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM books.authors WHERE author_id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM books_db.authors WHERE author_id = ?");
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             Author author = null;
