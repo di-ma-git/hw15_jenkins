@@ -17,11 +17,6 @@ public class BookService {
     @Autowired
     RedisRepository redisRepository;
 
-//    public void addBook(Book book) throws BookAlreadyExistException {
-//        if (bookRepository.findByBookName(book.getBookName()) != null) {
-//            throw new BookAlreadyExistException("Such book already exist!");
-//        }
-//    }
 
     public List<Book> getAllBooks() {
         return bookRepository.findAllBooks();

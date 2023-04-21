@@ -24,13 +24,6 @@ public class BookController {
     public ResponseEntity<?> allBooks() {
         return new ResponseEntity<>(bookService.getAllBooks(), OK);
 
-
-//        try {
-////            bookService.addBook(book);
-//        } catch (Exception e) {
-//            return new ResponseEntity("Error!", BAD_REQUEST);
-////            return ResponseEntity.badRequest().body("Error!");
-//        }
     }
 
     @GetMapping("/author/{id}")
@@ -38,18 +31,7 @@ public class BookController {
         return new ResponseEntity<>(bookService.getAuthor(id), OK);
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<?> addBook(@RequestBody Book book) {
-//        try {
-//            bookService.addBook(book);
-//            return new ResponseEntity<>(book, OK);
-//        } catch (BookAlreadyExistException ex) {
-//            return new ResponseEntity(ex.getMessage(), BAD_REQUEST);
-//        } catch (Exception e) {
-//            return new ResponseEntity("Error!", BAD_REQUEST);
-////            return ResponseEntity.badRequest().body("Error!");
-//        }
-//    }
+
 
 
 
