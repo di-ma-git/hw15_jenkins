@@ -1,7 +1,10 @@
 package org.example.hw12.config;
 
+import org.mariadb.jdbc.MariaDbDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -9,19 +12,25 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import javax.sql.DataSource;
+
 @Configuration
+@PropertySource("classpath:application.properties")
 public class RedisConfig {
-    private String host = "127.0.0.1";
-//    private String host = "185.106.92.133";
-    private int port = 6379;
-    private String pass = "vY3qS4uW9atT";
+
+    @Value(value = "${spring.data.redis.host}")
+    private String host;
+    @Value(value = "${spring.data.redis.port}")
+    private int port;
+    @Value(value = "${spring.data.redis.password}")
+    private String password;
 
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
         redisStandaloneConfiguration.setHostName(host);
         redisStandaloneConfiguration.setPort(port);
-        redisStandaloneConfiguration.setPassword(pass);
+        redisStandaloneConfiguration.setPassword(password);
         return new JedisConnectionFactory(redisStandaloneConfiguration);
     }
 
@@ -33,6 +42,5 @@ public class RedisConfig {
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         return template;
     }
-
 
 }

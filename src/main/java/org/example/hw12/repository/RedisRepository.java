@@ -5,6 +5,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Repository
 public class RedisRepository {
@@ -16,7 +17,7 @@ public class RedisRepository {
     }
 
     public void saveAuthor(Author author) {
-        redisTemplate.opsForValue().set(String.valueOf(author.getId()), author);
+        redisTemplate.opsForValue().set(String.valueOf(author.getId()), author, 1, TimeUnit.DAYS);
     }
 
     public Author findAuthorById(String key) {

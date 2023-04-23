@@ -5,9 +5,9 @@ services:
     image: mariadb:latest
     restart: always
     container_name: database
-    network_mode: "host"
-#    ports:
-#      - 3310:3306
+#    network_mode: "host"
+    ports:
+      - 3310:3306
     volumes:
       - ./db:/var/lib/mysql
       - ./config/init_db.sql:/docker-entrypoint-initdb.d/schema.sql
@@ -23,16 +23,16 @@ services:
     volumes:
       - ./config/redis.conf:/usr/local/etc/redis/redis.conf
     container_name: redis
-    network_mode: "host"
-#    ports:
-#      - 6379:6379
+#    network_mode: "host"
+    ports:
+      - 6379:6379
       
   app:
     build: ./
     container_name: application
-    network_mode: "host"
-#    ports:
-#      - 8080:8080
+#    network_mode: "host"
+    ports:
+      - 8080:8080
     depends_on:
       - db
       - redis

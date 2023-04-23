@@ -1,29 +1,21 @@
 package org.example.hw12.repository;
 
+import lombok.AllArgsConstructor;
 import org.example.hw12.model.Author;
 import org.example.hw12.model.Book;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@AllArgsConstructor
 @Repository
-//@ConfigurationProperties(prefix = "mariabdrepo")
 public class MariaBDBookRepository {
-    private String DRIVER;
-//    @Value("${URL}")
-//    private String URL = "jdbc:mariadb://185.106.92.133:3310/books";
-    private String URL = "jdbc:mariadb://127.0.0.1:3306/books";
-//    @Value("${USERNAME}")
-    private String USERNAME = "root";
-//    @Value("${PASS}")
-    private String PASS = "vY3qS4uW9atT";
+    private DataSource dataSource;
 
     public List<Book> findAllBooks() {
-
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASS)) {
-//            Class.forName(DRIVER);
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT book_id, book_name," +
                     "book_description, YEAR(book_publish_date), author_name, books.author_id FROM books.books\n" +
                     "JOIN books.authors\n" +
@@ -48,7 +40,7 @@ public class MariaBDBookRepository {
         return null;
     }
     public Author findAuthorById(String id) {
-        try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASS)) {
+        try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM books.authors WHERE author_id = ?");
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
