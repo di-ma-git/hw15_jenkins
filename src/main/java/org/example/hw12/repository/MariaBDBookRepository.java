@@ -9,12 +9,14 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @AllArgsConstructor
 @Repository
 public class MariaBDBookRepository {
     private DataSource dataSource;
 
-    public List<Book> findAllBooks() {
+    public Optional<List<Book>> findAllBooks() {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT book_id, book_name," +
                     "book_description, YEAR(book_publish_date), author_name, books.author_id FROM books.books\n" +
@@ -33,13 +35,13 @@ public class MariaBDBookRepository {
                         .build();
                 books.add(book);
             }
-            return books;
+            return Optional.ofNullable(books);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
-    public Author findAuthorById(String id) {
+    public Optional<Author> findAuthorById(String id) {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM books.authors WHERE author_id = ?");
             preparedStatement.setString(1, id);
@@ -53,19 +55,12 @@ public class MariaBDBookRepository {
                         .birthDate(String.valueOf(resultSet.getDate("author_birth_date")))
                         .build();
             }
-            return author;
+            return Optional.ofNullable(author);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
-//    public MariaBDBookRepository(String url, String username, String pass) {
-////        DRIVER = driver;
-//        URL = url;
-//        USERNAME = username;
-//        PASS = pass;
-//    }
-//
-//    public MariaBDBookRepository() {}
+
 }

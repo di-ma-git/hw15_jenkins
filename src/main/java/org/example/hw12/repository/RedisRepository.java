@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @Repository
 public class RedisRepository {
-
+    private final String AUTHOR_KEY_PREFIX = "author_";
     private final RedisTemplate<String, Object> redisTemplate;
 
     public RedisRepository(RedisTemplate<String, Object> redisTemplate) {
@@ -17,10 +17,10 @@ public class RedisRepository {
     }
 
     public void saveAuthor(Author author) {
-        redisTemplate.opsForValue().set(String.valueOf(author.getId()), author, 1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(AUTHOR_KEY_PREFIX + author.getId(), author, 1, TimeUnit.HOURS);
     }
 
-    public Author findAuthorById(String key) {
-        return (Author) redisTemplate.opsForValue().get(key);
+    public Optional<Author> findAuthorById(String key) {
+        return Optional.ofNullable((Author) redisTemplate.opsForValue().get(AUTHOR_KEY_PREFIX + key));
     }
 }
