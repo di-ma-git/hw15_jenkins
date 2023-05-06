@@ -28,7 +28,7 @@ public class BookController {
         try {
             return new ResponseEntity<>(bookService.getAllBooks(), OK);
         } catch (BooksNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>("Err!", BAD_REQUEST);
         }
@@ -46,7 +46,7 @@ public class BookController {
                 return new ResponseEntity<>(author, OK);
             }
         } catch (AuthorNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>("Error!", BAD_REQUEST);
         }

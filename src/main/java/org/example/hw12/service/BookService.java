@@ -22,7 +22,7 @@ public class BookService {
     public List<Book> getAllBooks() throws BooksNotFoundException {
         Optional<List<Book>> optionalBookList = bookRepository.findAllBooks();
         if (optionalBookList.isEmpty()) {
-            throw new BooksNotFoundException("No one book found!");
+            throw new BooksNotFoundException("No one book found! Database is empty!");
         } else {
             return optionalBookList.get();
         }

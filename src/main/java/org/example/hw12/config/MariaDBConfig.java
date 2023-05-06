@@ -20,9 +20,8 @@ public class MariaDBConfig {
 
     @Value(value = "${spring.datasource.password}")
     private String password;
-//    private String driver;
     @Bean
-    public DataSource mariaDBDataSource() throws SQLException {
+    public DataSource dataSource() throws SQLException {
         MariaDbDataSource dbDataSource = new MariaDbDataSource();
         dbDataSource.setUrl(url);
         dbDataSource.setUser(username);
