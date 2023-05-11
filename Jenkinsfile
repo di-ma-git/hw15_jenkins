@@ -8,7 +8,7 @@ pipeline {
 //             }
 //         }
         stage("1-Test") {
-            agent { docker {image 'maven:3-alpine'}}
+            agent { docker {image 'maven:3.8.1-openjdk-17-slim'}}
             steps {
                 sh 'mvn clean test'
             }
