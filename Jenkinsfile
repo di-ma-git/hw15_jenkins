@@ -22,6 +22,13 @@ pipeline {
     post {
         success {
             echo 'Wow!'
+//             sh cp '/var/lib/docker/volumes/jenkins_home/_data/workspace/${} $HOME/app/app.jar'
+            echo '${WORKSPACE}'
+            echo '${JENKINS_HOME}'
+            echo '${JENKINS_URL}'
+            echo '${JOB_URL}'
+            echo '${JOB_NAME}'
+            echo '${JOB_BASE_NAME}'
         }
     }
 }
