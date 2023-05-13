@@ -3,7 +3,7 @@ pipeline {
         dockerfile {
             filename 'Dockerfile.test.config'
             dir 'testconfig'
-            label 'test'
+//             label 'test'
         }
     }
     stages {
