@@ -1,7 +1,7 @@
 pipeline {
     agent {
         dockerfile {
-            filename 'Dockerfile.test.config'
+            filename 'Dockerfile.test.maven'
             dir 'testconfig'
 //             label 'test'
         }
