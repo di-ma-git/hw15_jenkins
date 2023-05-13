@@ -5,7 +5,7 @@ pipeline {
             dir 'testconfig'
             label 'test'
         }
-
+    }
     stages {
         stage("1-Test") {
             steps {
