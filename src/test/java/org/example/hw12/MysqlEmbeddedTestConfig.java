@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import static com.wix.mysql.EmbeddedMysql.anEmbeddedMysql;
 import static com.wix.mysql.ScriptResolver.classPathScript;
 import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
-import static com.wix.mysql.distribution.Version.v5_6_latest;
+import static com.wix.mysql.distribution.Version.*;
 
 @TestConfiguration
 public class MysqlEmbeddedTestConfig {
@@ -29,7 +29,7 @@ public class MysqlEmbeddedTestConfig {
 
     @Bean
     public EmbeddedMysql mysqlServer() {
-        EmbeddedMysql mysqlServer = anEmbeddedMysql(aMysqldConfig(v5_6_latest)
+        EmbeddedMysql mysqlServer = anEmbeddedMysql(aMysqldConfig(v5_5_latest)
                 .withPort(mysqlPort)
                 .withUser("test", "test")
                 .build())
