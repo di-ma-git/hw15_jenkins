@@ -29,7 +29,7 @@ public class MysqlEmbeddedTestConfig {
 
     @Bean
     public EmbeddedMysql mysqlServer() {
-        EmbeddedMysql mysqlServer = anEmbeddedMysql(aMysqldConfig(v5_6_35)
+        EmbeddedMysql mysqlServer = anEmbeddedMysql(aMysqldConfig(v5_)
                 .withPort(mysqlPort)
                 .withUser("test", "test")
                 .build())
