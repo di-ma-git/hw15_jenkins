@@ -3,6 +3,7 @@ pipeline {
         dockerfile {
             filename 'Dockerfile.test.maven'
             dir 'testconfig'
+            args '-v $HOME/.m2:/root/.m2'
 //             label 'test'
         }
     }
