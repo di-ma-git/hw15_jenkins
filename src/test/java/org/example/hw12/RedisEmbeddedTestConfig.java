@@ -27,14 +27,17 @@ public class RedisEmbeddedTestConfig {
 //        redisServer.start();
         return redisServer;
     }
-    @Bean(name = "testRedisConnectionFactory")
+    @Bean
+//    @Bean(name = "testRedisConnectionFactory")
     public LettuceConnectionFactory redisConnectionFactory() {
         return new LettuceConnectionFactory(redisHost, redisPort);
     }
 
 
-    @Bean(name = "testRedisTemplate")
-    public RedisTemplate<String, Object> redisTemplate(@Qualifier(value = "testRedisConnectionFactory") LettuceConnectionFactory connectionFactory) {
+    @Bean
+//    @Bean(name = "testRedisTemplate")
+//    public RedisTemplate<String, Object> redisTemplate(@Qualifier(value = "testRedisConnectionFactory") LettuceConnectionFactory connectionFactory) {
+    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
@@ -42,15 +45,6 @@ public class RedisEmbeddedTestConfig {
         return template;
     }
 
-//    @PostConstruct
-//    public void postConstruct() {
-//        redisServer.start();
-//    }
-//
-//    @PreDestroy
-//    public void preDestroy() {
-//        redisServer.stop();
-//    }
 
     @Bean
     RestTemplate restTemplate() {

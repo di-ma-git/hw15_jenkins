@@ -32,7 +32,7 @@ public class BookApplicationEmbeddedIntegrationTest {
     @Autowired
     ApplicationContext applicationContext;
     @Autowired
-    @Qualifier(value = "testRedisTemplate")
+//    @Qualifier(value = "testRedisTemplate")
     RedisTemplate redisTemplate;
     @Autowired
     RedisRepository redisRepository;
