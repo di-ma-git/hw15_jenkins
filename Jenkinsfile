@@ -10,7 +10,7 @@ pipeline {
         stage("1-Test") {
             agent { docker {image 'maven:3.8.1-openjdk-17-slim'}}
             steps {
-                sh 'apt-get install libaio1'
+                sh 'sudo apt-get install libaio1'
                 sh 'mvn clean test'
             }
         }
