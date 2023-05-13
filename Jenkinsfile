@@ -27,8 +27,9 @@ pipeline {
             echo "${JENKINS_HOME}"
             sh 'echo ${JENKINS_URL}'
             sh 'echo "${JOB_URL}"'
-            echo '${JOB_NAME}'
-            echo '${JOB_BASE_NAME}'
+            echo "${JOB_NAME}"
+            echo "${JOB_BASE_NAME}"
+            sh 'printenv'
         }
     }
 }
