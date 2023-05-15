@@ -29,7 +29,7 @@ pipeline {
 
             echo 'Wow!'
 //             sh 'cp /var/lib/docker/volumes/jenkins_home/_data/workspace/${JOB_BASE_NAME}/target/demo-0.0.1-SNAPSHOT.jar $HOME/app/app.jar'
-            sh 'scp $JOB_BASE_NAME/target/demo-0.0.1-SNAPSHOT.jar $ACCESS_KEY_USR@185.106.92.133:/home/jenkins/app/app.jar'
+            sh 'sshpass -p $ACCESS_KEY_PSW scp $JOB_BASE_NAME/target/demo-0.0.1-SNAPSHOT.jar $ACCESS_KEY_USR@185.106.92.133:/home/jenkins/app/app.jar'
 
             sh 'printenv'
         }
