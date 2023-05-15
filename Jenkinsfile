@@ -17,14 +17,14 @@ pipeline {
 //                 sh 'mvn clean test'
 //             }
 //         }
-        stage("2-Build") {
-            steps {
-                sh 'mvn clean -DskipTests package'
-
-
-            }
-        }
-    }
+//         stage("2-Build") {
+//             steps {
+//                 sh 'mvn clean -DskipTests package'
+//
+//
+//             }
+//         }
+//     }
     post {
 
         success {
