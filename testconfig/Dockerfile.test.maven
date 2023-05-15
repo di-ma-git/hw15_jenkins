@@ -1,4 +1,5 @@
 FROM maven:3.8.1-openjdk-17-slim
 USER root
 RUN apt-get update && \
-apt-get install libaio1 libnuma-dev libncurses5 ssh sshpass -y
+apt-get install libaio1 libnuma-dev libncurses5 ssh sshpass -y && \
+adduser --uid 1000 jenkins
