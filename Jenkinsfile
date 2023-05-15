@@ -8,11 +8,11 @@ pipeline {
         }
     }
     stages {
-//         stage("1-Test") {
-//             steps {
-//                 sh 'mvn clean test'
-//             }
-//         }
+        stage("1-Test") {
+            steps {
+                sh 'mvn clean test'
+            }
+        }
         stage("2-Build") {
             steps {
                 sh 'mvn clean -DskipTests package'
@@ -22,13 +22,7 @@ pipeline {
     post {
         success {
             echo 'Wow!'
-            sh 'cp /var/lib/docker/volumes/jenkins_home/_data/workspace/${JOB_BASE_NAME} $HOME/app/app.jar'
-            sh "echo '${WORKSPACE}'"
-            echo "${JENKINS_HOME}"
-            sh 'echo ${JENKINS_URL}'
-            sh 'echo "${JOB_URL}"'
-            echo "${JOB_NAME}"
-            echo "${JOB_BASE_NAME}"
+            sh 'cp /var/lib/docker/volumes/jenkins_home/_data/workspace/${JOB_BASE_NAME}/target/demo-0.0.1-SNAPSHOT.jar $HOME/app/app.jar'
             sh 'printenv'
         }
     }
