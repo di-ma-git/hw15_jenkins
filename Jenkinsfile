@@ -11,7 +11,7 @@ pipeline {
     environment {
         ACCESS_KEY = credentials('jenkins-secret-with-pass')
     }
-//     stages {
+    stages {
 //         stage("1-Test") {
 //             steps {
 //                 sh 'mvn clean test'
@@ -24,7 +24,7 @@ pipeline {
 //
 //             }
 //         }
-//     }
+    }
     post {
 
         success {
