@@ -12,18 +12,18 @@ pipeline {
         ACCESS_KEY = credentials('jenkins-secret-with-pass')
     }
     stages {
-//         stage("1-Test") {
-//             steps {
+        stage("1-Test") {
+            steps {
 //                 sh 'mvn clean test'
-//             }
-//         }
-//         stage("2-Build") {
-//             steps {
+            }
+        }
+        stage("2-Build") {
+            steps {
 //                 sh 'mvn clean -DskipTests package'
 //
 //
-//             }
-//         }
+            }
+        }
     }
     post {
 
