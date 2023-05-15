@@ -6,9 +6,10 @@ pipeline {
             args '-v $HOME/.m2:/root/.m2'
 //             label 'test'
         }
-        environment {
-            ACCESS_KEY = credentials('jenkins-secret-with-pass')
-        }
+
+    }
+    environment {
+        ACCESS_KEY = credentials('jenkins-secret-with-pass')
     }
     stages {
         stage("1-Test") {
