@@ -1,0 +1,9 @@
+FROM redis:alpine
+
+COPY ./config/redsis.conf /usr/local/etc/redis.conf
+
+EXPOSE 6379
+
+CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]
+
+#docker run -it -d --name redis/redis:latest --restart=always jenkinsconf/Dockerfile.redis
