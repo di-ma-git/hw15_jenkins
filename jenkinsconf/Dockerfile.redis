@@ -1,10 +1,10 @@
 FROM redis:alpine
 
-COPY config/redis.conf /usr/local/etc/redis.conf
+COPY config/redis.conf /usr/local/etc/redis/redis.conf
 
 EXPOSE 6379
 
 CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]
 
 #docker build -t redis:latest -f ./jenkinsconf/Dockerfile.redis .
-#docker run -it -d --name redis --restart=always
+#docker run -it -d --name redis --restart=always redis:latest
