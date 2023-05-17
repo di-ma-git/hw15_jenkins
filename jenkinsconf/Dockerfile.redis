@@ -1,7 +1,9 @@
 FROM redis:alpine
 
-COPY config/redis.conf /usr/local/etc/redis/redis.conf
+ARG REDIS_PASS=$REDIS_PASS
 
+COPY config/redis.conf /usr/local/etc/redis/redis.conf
+RUN echo "requirepass ${REDIS_PASS}" >>  /usr/local/etc/redis/redis.conf
 EXPOSE 6379
 
 CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]
