@@ -6,4 +6,5 @@ EXPOSE 6379
 
 CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]
 
-#docker run -it -d --name redis/redis:latest --restart=always jenkinsconf/Dockerfile.redis
+#docker run -it -d --name redis --restart=always
+#docker build -t redis jenkinsconfig/Dockerfile.redis
